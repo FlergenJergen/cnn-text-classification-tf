@@ -35,13 +35,21 @@ tf.flags.DEFINE_integer("num_checkpoints", 5, "Number of checkpoints to store (d
 tf.flags.DEFINE_boolean("allow_soft_placement", True, "Allow device soft device placement")
 tf.flags.DEFINE_boolean("log_device_placement", False, "Log placement of ops on devices")
 
+# help message broke with sys.argv 
+tf.flags.DEFINE_boolean("help", False, "print help message")
+
 FLAGS = tf.flags.FLAGS
 FLAGS(sys.argv)
-print("\nParameters:")
-for attr, value in sorted(FLAGS.__flags.items()):
-    print("{}={}".format(attr.upper(), value))
-print("")
 
+def help_msg():
+    print("\nParameters:")
+    for attr, value in sorted(FLAGS.__flags.items()):
+        print("    -"+attr, attr.upper())
+    print("")
+
+if (FLAGS.help):
+    help_msg()
+    quit()
 
 # Data Preparation
 # ==================================================
